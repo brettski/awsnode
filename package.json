@@ -1,0 +1,20 @@
+{
+  "name": "awsnode",
+  "version": "1.0.0",
+  "description": "Node scripts for looking at aws infrastructure data",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "aws",
+    "sdk",
+    "json"
+  ],
+  "author": "Brett Slaski",
+  "license": "ISC",
+  "engines": {
+    "node": "^7.5.0"
+  }
+}
