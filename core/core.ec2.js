@@ -1,7 +1,6 @@
+
 var AWS = require('aws-sdk');
-
-var ec2 = new AWS.EC2({region: 'us-east-1', apiVersion: '2016-11-15'});
-
+var ec2 = new AWS.EC2({apiVersion: '2016-11-15'});
 
 function getInstances (callback) {
     ec2.describeInstances(function(err, data) {

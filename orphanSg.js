@@ -23,4 +23,3 @@ ec2.getSecurityGroupIds (function(err, secGrpIds) {
     });
 });
 
-
