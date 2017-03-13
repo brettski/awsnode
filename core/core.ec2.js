@@ -14,7 +14,7 @@ function getInstances (callback) {
     });
 }
 
-function getInstanceIds (callback) {
+function getInstanceSecurityGroupIds (callback) {
     getInstances(function(err, instances) {
         
         // The long ass way to the ec2 instance's Group id 
@@ -24,7 +24,9 @@ function getInstanceIds (callback) {
         for (inst of instances) {
             for (instance of inst.Instances) {
                 for (securityGroup of instance.SecurityGroups) {
-                    groups.push(securityGroup.GroupId);
+                    if (groups.indexOf(securityGroup.GroupId) === -1) {
+                        groups.push(securityGroup.GroupId);
+                    }
                 }
             }
         }
@@ -61,9 +63,58 @@ function getSecurityGroupIds (callback) {
     });
 }
 
+function getVpcs (callback) {
+    ec2.describeVpcs({}, function(err, data) {
+        if (err) {
+            callback(err);
+            console.log(err, err.stack);
+        }
+        else {
+            callback(null, data.Vpcs);
+        }
+    })
+}
+
+function getVpcIds (callback) {
+    getVpcs(function(err, vpcs) {
+        if (err) {
+            callback(err);
+        }
+        else {
+            var vs = [];
+            for (vpc of vpcs) {
+                vs.push(vpc.VpcId);
+            }
+            callback(null, vs);
+        }
+    });
+}
+
+function getInstanceVpcIds (callback) {
+    getInstances(function(err, reservations) {
+        if (err) {
+            callback(err);
+        }
+        else {
+            var ivis = [];
+            for (reservation of reservations) {
+                for (instance of reservation.Instances) {
+                    if (ivis.indexOf(instance.VpcId) === -1) {
+                        ivis.push(instance.VpcId);
+                    }
+                }
+            }
+        }
+        callback(null, ivis);
+    });
+}
+
 module.exports = {
     getInstances: getInstances,
-    getInstanceIds: getInstanceIds,
+    getInstanceSecurityGroupIds: getInstanceSecurityGroupIds,
     getSecurityGroups: getSecurityGroups,
-    getSecurityGroupIds: getSecurityGroupIds
+    getSecurityGroupIds: getSecurityGroupIds,
+    getVpcs: getVpcs,
+    getVpcIds: getVpcIds,
+    getInstanceVpcIds: getInstanceVpcIds
 }

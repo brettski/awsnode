@@ -29,8 +29,24 @@ function returnStaleSGs() {
         }
     });
 }
+/*
+ec2.describeKeyPairs({}, function(err, data) {
+    if (err) console.log(err, err.stack);
+    else console.log(data);
+});
+*/
 
-ec2.describeSecurityGroups({}, function(err, data) {
+ec2.describeInstances({}, function(err, data) {
+    if (err) console.log(err, err.stack);
+    else { 
+        console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+        console.log('data.Reservations[0].Instances[0]');
+        console.log(data.Reservations[0].Instances[0]);
+    }
+})
+
+
+ec2.describeVpcs({}, function(err, data) {
     if (err) console.log(err, err.stack);
     else console.log(data);
 })

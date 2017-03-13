@@ -1,5 +1,5 @@
 
-const ec2 = require('./core/core.ec2');
+const coreec2 = require('./core/core.coreec2');
 
 function getOrphanedSecurityGroups (secGroupIds, instSecGrpIds, callback) {
     var sgi = new Set(secGroupIds);
@@ -14,8 +14,8 @@ function getOrphanedSecurityGroups (secGroupIds, instSecGrpIds, callback) {
 } 
 
 // the meat
-ec2.getSecurityGroupIds (function(err, secGrpIds) {
-    ec2.getInstanceIds (function(err, instGrpIds) {
+coreec2.getSecurityGroupIds (function(err, secGrpIds) {
+    coreec2.getInstanceSecurityGroupIds (function(err, instGrpIds) {
         getOrphanedSecurityGroups(secGrpIds, instGrpIds, function(err, data) {
             console.log('Orphans:\n');
             console.log(data);
