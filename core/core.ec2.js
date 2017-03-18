@@ -129,7 +129,7 @@ function getAddressesIps (callback) {
         }
         else {
             var ips = [];
-            for (address in addresses) {
+            for (address of addresses) {
                 if(ips.indexOf(address.PublicIp) === -1) {
                     ips.push(address.PublicIp);
                 }

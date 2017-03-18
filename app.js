@@ -8,7 +8,7 @@ AWS.config.update({region: 'us-east-1'});
 
 //require('./orphanSg');
 
-var coreec2 = require('./core/core.ec2');
+//var coreec2 = require('./core/core.ec2');
 
 /*
 coreec2.getVpcIds(function(err, data) {
@@ -24,5 +24,6 @@ coreec2.getInstanceVpcIds(function(err, data) {
 
 //require('./orphanVpc');
 
+require('./certcheck');
 
 

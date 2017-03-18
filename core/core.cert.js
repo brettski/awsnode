@@ -18,7 +18,7 @@ function getCertificate (uri, callback) {
     });
 
     req.on('socket', function(socket) {
-        socket.setTimeout(5000);
+        socket.setTimeout(10000);
         socket.on('timeout', function() {
             req.abort();
         })
@@ -30,6 +30,8 @@ function getCertificate (uri, callback) {
         }
         callback (err);
     })
+
+    req.end();
 } 
 
 

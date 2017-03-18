@@ -1,8 +1,10 @@
 var AWS = require('aws-sdk');
 var credentials = new AWS.SharedIniFileCredentials({ profile: 'production0'});
 //AWS.config.credentials = credentials;
-
+AWS.config.update({region: 'us-east-1'});
 var ec2 = new AWS.EC2({region: 'us-east-1', apiVersion: '2016-11-15'});
+
+
 
 function getVpcs(callback) {
     ec2.describeVpcs(function(err, data) {
@@ -38,21 +40,14 @@ ec2.describeKeyPairs({}, function(err, data) {
 });
 */
 /*
-ec2.describeInstances({}, function(err, data) {
+var coreec2 = require('./core/core.ec2');
+coreec2.getAddressesIps(function(err, data) {
     if (err) console.log(err, err.stack);
-    else { 
-        console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-        console.log('data.Reservations[0].Instances[0]');
-        console.log(data.Reservations[0].Instances[0]);
-    }
-})
-*/
-ec2.describeAddresses({}, function(err, data) {
-    if (err) {
-        console.log(err, err.stack);
-    }
-    else {
-        console.log(data);
-    }
+    else console.log(data);
 });
-
+*/
+var corecert = require('./core/core.cert');
+corecert.getCertificate('52.204.0.199', function(err, cert) {
+    if (err) console.log(err, err.stack);
+    else console.log(cert);
+});
