@@ -12,12 +12,13 @@ coreec2.getAddressesIps(function(err, addressesIps) {
 });
 
 function getCertificateList(addressIps, callback) {
+    console.log(addressIps);
     let certificates = {};
     certificates.certificate = [];
     for (ip of addressIps) {
-        corecert.getCertificate(ip, function(err, cert) {
+        corecert.getCertificate(ip, function(err, uri, cert) {
             var certobj = {
-                ip: ip,
+                ip: uri,
                 commonName: null,
                 subjectAltName: null,
                 validFrom: null,
@@ -45,5 +46,4 @@ function getCertificateList(addressIps, callback) {
             }
         });
     }
-    //callback(null, certificates);
 }

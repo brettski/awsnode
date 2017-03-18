@@ -2,7 +2,7 @@
 
 var AWS = require('aws-sdk');
 var credentials = new AWS.SharedIniFileCredentials({ profile: 'production0'});
-//AWS.config.credentials = credentials;
+AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-east-1'});
 
 

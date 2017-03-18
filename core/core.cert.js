@@ -14,7 +14,7 @@ function getCertificate (uri, callback) {
     var req = https.request(options, function(res) {
         var cert = res.connection.getPeerCertificate();
         console.log("received certificate: " + cert.subject.CN + " valid to: " + cert.valid_to);
-        callback(null, cert);
+        callback(null, uri, cert);
     });
 
     req.on('socket', function(socket) {
@@ -28,7 +28,7 @@ function getCertificate (uri, callback) {
         if (err.code === 'ECONNRESET') {
             console.log("timout acccessesing uri: " + uri);
         }
-        callback (err);
+        callback (err, uri);
     })
 
     req.end();
