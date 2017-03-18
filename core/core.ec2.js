@@ -36,6 +36,27 @@ function getInstanceSecurityGroupIds (callback) {
 
 }
 
+function getInstanceIpAddresses (callback) {
+    getInstances(function(err, instances) {
+        // data.Reservations[0].Instances[0].PublicIpAddress
+        var ips = {};
+        ips.ip = [];
+        for(inst of instances) {
+            for(instance of instances) {
+                var ipobj = {
+                    instanceId: instance.InstanceId,
+                    privateIp: instance.PrivateIpAddress,
+                    publicIp: instance.PublicIpAddress,
+                    subnetId: instance.SubnetId,
+                    vpcId: instance.VpcId
+                }
+                ips.ip.push(ipobj);
+            }
+        }
+        callback(null, ips);
+    });
+}
+
 function getSecurityGroups (callback) {
     ec2.describeSecurityGroups({}, function(err, data) {
         if (err) {
