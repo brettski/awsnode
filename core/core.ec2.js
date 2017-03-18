@@ -104,9 +104,39 @@ function getInstanceVpcIds (callback) {
                     }
                 }
             }
+            callback(null, ivis);
         }
-        callback(null, ivis);
     });
+}
+
+function getAddresses (callback) {
+    ec2.describeAddresses({}, function(err, data) {
+        if (err) {
+            callback(err);
+            console.log(err, err.stack);
+        }
+        else {
+            callback(null, data.Addresses);
+        }
+    })
+}
+
+function getAddressesIps (callback) {
+    getAddresses(function(err, addresses) {
+        if (err) {
+            console.log(err, err.stack);
+            callback(err);
+        }
+        else {
+            var ips = [];
+            for (address in addresses) {
+                if(ips.indexOf(address.PublicIp) === -1) {
+                    ips.push(address.PublicIp);
+                }
+            }
+            callback(null, ips);
+        }
+    })
 }
 
 module.exports = {
@@ -116,5 +146,7 @@ module.exports = {
     getSecurityGroupIds: getSecurityGroupIds,
     getVpcs: getVpcs,
     getVpcIds: getVpcIds,
-    getInstanceVpcIds: getInstanceVpcIds
+    getInstanceVpcIds: getInstanceVpcIds,
+    getAddresses: getAddresses,
+    getAddressesIps: getAddressesIps
 }
