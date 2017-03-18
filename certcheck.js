@@ -40,8 +40,10 @@ function getCertificateList(addressIps, callback) {
                 certobj.serialNumber = cert.serialNumber;
             }
             certificates.certificate.push(certobj);
-            //console.log(certobj);
+            if (addressIps.length === certificates.certificate.length) {
+                callback(null, certificates);
+            }
         });
     }
-    callback(null, certificates);
+    //callback(null, certificates);
 }
