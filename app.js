@@ -2,7 +2,7 @@
 
 var AWS = require('aws-sdk');
 var credentials = new AWS.SharedIniFileCredentials({ profile: 'production0'});
-AWS.config.credentials = credentials;
+//AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-east-1'});
 
 
@@ -24,6 +24,11 @@ coreec2.getInstanceVpcIds(function(err, data) {
 
 //require('./orphanVpc');
 
-require('./certcheck');
+var cc = require('./certcheck');
+
+cc.CheckElasticIpCerts(function(err, data) {
+    if (err) console.log(err, err.stack);
+    else console.log(data);
+})
 
 

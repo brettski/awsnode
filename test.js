@@ -46,8 +46,14 @@ coreec2.getAddressesIps(function(err, data) {
     else console.log(data);
 });
 */
+/*
 var corecert = require('./core/core.cert');
 corecert.getCertificate('52.204.0.199', function(err, cert) {
     if (err) console.log(err, err.stack);
     else console.log(cert);
 });
+*/
+
+ec2.describeInstances({}, function(err, data) {
+    console.log(data.Reservations[0].Instances[0].PublicIpAddress);
+})
