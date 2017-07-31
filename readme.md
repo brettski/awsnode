@@ -20,7 +20,7 @@ finds ec2 orphaned VPC's. Checking which ones are not in use by an instance.
 
 ### certcheck.js
 By elastic IP or Instance IP creates a list of accessible certificates with valid dates, etc.  
-```json
+```JavaScript
 { ip: '10.0.0.20',
        commonName: '*.example.com',
        subjectAltName: 'DNS:*.example.com, DNS:example.com',
