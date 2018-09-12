@@ -16,5 +16,8 @@
   "license": "ISC",
   "engines": {
     "node": "^7.5.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.313.0"
   }
 }

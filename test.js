@@ -1,6 +1,6 @@
 var AWS = require('aws-sdk');
-var credentials = new AWS.SharedIniFileCredentials({ profile: 'production0'});
-//AWS.config.credentials = credentials;
+var credentials = new AWS.SharedIniFileCredentials({ profile: 'saml'});
+AWS.config.credentials = credentials;
 AWS.config.update({region: 'us-east-1'});
 var ec2 = new AWS.EC2({region: 'us-east-1', apiVersion: '2016-11-15'});
 
@@ -54,6 +54,11 @@ corecert.getCertificate('52.204.0.199', function(err, cert) {
 });
 */
 
+/*
 ec2.describeInstances({}, function(err, data) {
     console.log(data.Reservations[0].Instances[0].PublicIpAddress);
+})
+*/
+getVpcs((vpcs) => {
+  console.log(vpcs);
 })
